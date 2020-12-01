@@ -1,17 +1,27 @@
 'use strict';
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-
-var MovieSchema = new Schema({
-  username: {
-    type: String,
-    required: 'Please enter a valid username.'
-  },
-  Created_date: {
-    type: Date,
-    default: Date.now
-  }
-});
-
-module.exports = mongoose.model('Users', UserSchema);
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Movie extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  };
+  Movie.init({
+    title: DataTypes.STRING,
+    thumbsUp: DataTypes.INTEGER,
+    thumbsDown: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    details: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'Movie',
+  });
+  return Movie;
+};
