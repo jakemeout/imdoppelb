@@ -1,0 +1,14 @@
+.nav-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    border-bottom: 4px solid;
+}
+
+.nav-header {
+    
+}
+
+.nav-content {
+    margin-left: auto;
+}
