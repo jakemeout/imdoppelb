@@ -1,26 +1,30 @@
 const db = require("../models");
-const User = db.users;
+const Movie = db.movies;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
+console.log(req.body);
 
-  
-  if (!req.body.username) {
+  if (!req.body.title) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Cannot be missing title or content"
     });
     return;
   }
 
   // Create a User
-  const user = {
-    username: req.body.username
+  const movie = {
+    title: req.body.title,
+    thumbsUp: req.body.thumbsUp,
+    thumbsDown: req.body.thumbsDown,
+    userId: req.body.userId,
+    details: req.body.details
   };
 
   // Save User in the database
-  User.create(user)
+  Movie.create(movie)
     .then(data => {
       res.send(data);
     })
@@ -30,4 +34,8 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while creating the User."
       });
     });
+
+    
 };
+
+ 
