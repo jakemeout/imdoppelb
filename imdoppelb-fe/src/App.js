@@ -1,23 +1,15 @@
 import Nav from "./components/Nav.js";
-import Search from "./components/Search.js";
+import Searchbar from "./components/Searchbar.js";
+// import MovieCards from "./MovieCards";
 import "./css/App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const divStyle = 
-    {
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      marginTop: '5%'
-    };
-
+  
   return (
     <>
       <Nav />
-      <div style={divStyle}>
-      <Search />
-      </div>
-      <h1>Hello World!</h1>
+      <Searchbar />
     </>
   );
 }

@@ -1,6 +1,6 @@
 .nav-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: baseline;
     align-items: baseline;
     border-bottom: 4px solid;
 }
