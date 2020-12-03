@@ -56,7 +56,7 @@ const MovieCarousel = ({ data }) => {
       style={{
         margin: "auto",
         marginTop: "30px",
-        width: "600px",
+        width: "480px",
         height: "600px",
         backgroundColor: "#e2e2e2",
       }}
@@ -66,20 +66,24 @@ const MovieCarousel = ({ data }) => {
           <img
             className="d-block w-100"
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            style={{ height: "800px" }}
+            style={{ height: "600px" }}
             alt={`${movie.title}`}
             data-holder-rendered="true"
           />
-          <Carousel.Caption style={{ color: "white" }}>
-            <h3>{movie.title}</h3>
-            <h4>Release Date: {movie.release_date}</h4>
-
+          <div style={{ marginTop: "20px", textAlign: "center"}}>
+            <h5>{movie.title}</h5>
+            <h6>{movie.release_date}</h6>
             <p>{movie.overview}</p>
-            <Button onClick={() => postThumbs(movie, true)}>👍</Button>
-            {thumbsUp}
-            <Button onClick={() => postThumbs(movie, false)}>👎</Button>
-            {thumbsDown}
-          </Carousel.Caption>
+            <Button
+                onClick={() => postThumbs(movie, true)}
+                style={{ marginRight: "10px" }}
+              >
+                👍 {thumbsUp}
+              </Button>
+              <Button onClick={() => postThumbs(movie, false)}>
+                👎 {thumbsDown}
+              </Button>
+          </div>
         </Carousel.Item>
       ))}
     </Carousel>

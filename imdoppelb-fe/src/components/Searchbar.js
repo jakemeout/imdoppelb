@@ -27,24 +27,36 @@ const Searchbar = () => {
     background: "#F2F1F9",
     border: "none",
     padding: "0.5rem",
+    height: "40px"
   };
 
   const renderMovies = () => {
     return data?.results?.length && <MovieCarousel data={data} />;
   };
 
+  //In lieu of the type="submit" typically on a form, using this keypress for mimicing the return functionality to smoothen the experience
+  const handleKeypress = (e) => {
+        if(e.key === "Enter"){
+          return setUrl(
+            `https://api.themoviedb.org/3/search/movie?api_key=${env.M_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+          )
+        }
+  }
+
   return (
     <>
       <div style={{ marginTop: "5%", textAlign: "center" }}>
+   
         <input
           style={BarStyling}
+          onKeyPress={handleKeypress}
           key="random1"
           value={query}
           placeholder={"search a movie title"}
           onChange={(e) => setQuery(e.target.value)}
         />
         <Button
-          type="button"
+          style={{height: "40px", padding: "8px", marginBottom: "4px"}}
           onClick={() =>
             setUrl(
               `https://api.themoviedb.org/3/search/movie?api_key=${env.M_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
@@ -53,6 +65,7 @@ const Searchbar = () => {
         >
           Search!
         </Button>
+      
       </div>
       {renderMovies()}
     </>
