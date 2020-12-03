@@ -3,20 +3,13 @@ module.exports = (app) => {
 
   let router = require("express").Router();
 
-  // Create a new movie
-  router.post("/", movies.create);
 
-  // Find the movie selected
+  // Find or create the movie
   router.get("/:id", movies.findOne);
 
-  // // Update a Film with id
+  // // Update movie with thumbs up or down
   router.put("/:id", movies.update);
 
-  // // Delete a Film with id
-  // router.delete("/:id", movies.delete);
-
-  // // Delete all films
-  // router.delete("/", fimovieslms.deleteAll);
 
   app.use("/api/movies", router);
 };
