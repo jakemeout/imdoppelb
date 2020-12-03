@@ -24,3 +24,8 @@ app.use(cors());
 //   res.json({ message: "IMDoppelB!" });
 // });
 require("./routes/movies.routes.js")(app);
+
+
+
+
+
