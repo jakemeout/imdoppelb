@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     thumbsUp: DataTypes.INTEGER,
     thumbsDown: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+    movieApiId: DataTypes.INTEGER,
     details: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Movie',
+    modelName: 'movie',
   });
   return Movie;
 };

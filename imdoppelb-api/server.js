@@ -23,4 +23,4 @@ app.use(cors());
 // app.get("/", (req, res) => {
 //   res.json({ message: "IMDoppelB!" });
 // });
-require("./routes/users.routes.js")(app);
+require("./routes/movies.routes.js")(app);
