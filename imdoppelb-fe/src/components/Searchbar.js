@@ -3,7 +3,7 @@ import env from "react-dotenv";
 import axios from "axios";
 import { Button } from "@material-ui/core";
 
-import MovieCarousel from "./MovieCarousel"
+import MovieCarousel from "./MovieCarousel";
 
 const Searchbar = () => {
   const [data, setData] = useState({ hits: [] });
@@ -30,10 +30,9 @@ const Searchbar = () => {
   };
 
   const renderMovies = () => {
-    return <MovieCarousel data={data}/>
-  }
+    return data?.results?.length && <MovieCarousel data={data} />;
+  };
 
-  
   return (
     <>
       <div style={{ marginTop: "5%", textAlign: "center" }}>

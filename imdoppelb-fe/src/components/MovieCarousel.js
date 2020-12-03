@@ -1,30 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import { Button } from "@material-ui/core";
 
 const MovieCarousel = ({ data }) => {
   const [index, setIndex] = useState(0);
+  const [thumbsUp, setThumbsUp] = useState(0);
+  const [thumbsDown, setThumbsDown] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
+    const selectedMovieId = data?.results?.[selectedIndex]?.id;
+    if (selectedMovieId) {
+      fetch(`http://localhost:3001/api/movies/${selectedMovieId}`, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+        .then((resp) => resp.json())
+        .then((resp) => {
+          setThumbsDown(resp.thumbsDown);
+          setThumbsUp(resp.thumbsUp);
+        });
+    }
   };
-  
-  
-// const fetchThumbs = (id) => {
-//     fetch(`http://localhost:3001/movies/${id}`, {
-//       method: "GET",
-//       headers: {
-//         "content-type": "application/json",
-//       }).then(resp => resp.json()).then(resp => console.log(resp))
-// }
 
-// const renderThumbs = () => {
+  useEffect(() => {
+    handleSelect(0);
+  }, []);
 
-// }
-
-// const postThumbs = () => {
-
-// }
+  const postThumbs = (movie, isThumbsUp = true) => {
+    let updatedThumbs = (isThumbsUp ? thumbsUp : thumbsDown || 0) + 1;
+    fetch(`http://localhost:3001/api/movies/${movie.id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(
+        isThumbsUp ? { thumbsUp: updatedThumbs } : { thumbsDown: updatedThumbs }
+      ),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log(resp);
+        setThumbsDown(resp.thumbsDown);
+        setThumbsUp(resp.thumbsUp);
+      });
+  };
 
   if (!data?.results?.length) return null;
   return (
@@ -53,8 +75,10 @@ const MovieCarousel = ({ data }) => {
             <h4>Release Date: {movie.release_date}</h4>
 
             <p>{movie.overview}</p>
-            <Button>👍</Button>
-            <Button>👎</Button>
+            <Button onClick={() => postThumbs(movie, true)}>👍</Button>
+            {thumbsUp}
+            <Button onClick={() => postThumbs(movie, false)}>👎</Button>
+            {thumbsDown}
           </Carousel.Caption>
         </Carousel.Item>
       ))}
